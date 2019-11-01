@@ -1,0 +1,23 @@
+1.
+Array access:
+    O(1)/constant
+Add/remove from beginning of array:
+    O(n)/linear with respect to the size of the array.
+    All elements must be shifted.
+Add/remove from end of array:
+    O(1)/constant, assuming the storage allocation does not need expanding.
+
+2.
+Extend dynamic array size:
+    O(n)/linear.
+    Allocate new space, copy each element
+
+3.
+What does a node do if it gets a message from another in the network with a new block?
+    Validate the proof contained to check that it matches, then begin the next block.
+
+4.
+Why can't someone cheat by changing a transaction from an earlier block?
+    This will change the hash of that block. They would then have to re-validate
+    that block and all subsequent to the current blocks and generate proofs
+    before a proof for the current block can be generated.
