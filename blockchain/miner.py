@@ -25,7 +25,11 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    #  TODO: Your code here
+    print(f"last proof: {last_proof}")
+    lp_string = str(last_proof).encode()
+    last_hash = hashlib.sha256(lp_string).hexdigest()
+    while not valid_proof(last_hash=last_hash, proof=proof):
+        proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -38,9 +42,12 @@ def valid_proof(last_hash, proof):
 
     IE:  last_hash: ...AE9123456, new hash 123456888...
     """
+    p = str(proof).encode()
+    hashed = hashlib.sha256(p).hexdigest()
+    if hashed[:6] == last_hash[-6:]:
+        print(f"new proof: {proof}")
+    return hashed[:6] == last_hash[-6:]
 
-    # TODO: Your code here!
-    pass
 
 
 if __name__ == '__main__':
@@ -73,6 +80,7 @@ if __name__ == '__main__':
 
         r = requests.post(url=node + "/mine", json=post_data)
         data = r.json()
+        print(data)
         if data.get('message') == 'New Block Forged':
             coins_mined += 1
             print("Total coins mined: " + str(coins_mined))
